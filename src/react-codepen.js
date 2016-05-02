@@ -7,8 +7,20 @@ const Codepen = React.createClass({
     hash: React.PropTypes.string.isRequired,
     height: React.PropTypes.string,
     width: React.PropTypes.string,
-    tab: React.PropTypes.oneOf(['html', 'css', 'result', 'js']),
-    theme: React.PropTypes.string
+    theme: React.PropTypes.string,
+    version: React.PropTypes.number,
+    tab(props, propName, componentName) {
+
+      // Valid tab props: `result`; `html`; `result,js`; `css,html`
+      // Invalid: `result,result`; `js,js`; `html`; `foo`
+      const TAB_REGEX = /^(result|js|css|html)(,(?!\1)(result|js|css|html)|)?$/gm;
+
+      if (!TAB_REGEX.test(props[propName])) {
+        return new Error(
+          `Invalid prop \`${propName}\` supplied to \`${componentName}\`. Validation failed.`
+        );
+      }
+    }
   },
 
   getDefaultProps () {
@@ -16,12 +28,13 @@ const Codepen = React.createClass({
       height: '250px',
       width: '100%',
       tab: 'result',
-      theme: '0'
+      theme: '0',
+      version: 2
     };
   },
 
   render () {
-    const src  = `//codepen.io/${this.props.user}/embed/${this.props.hash}/?height=${this.props.height}&theme-id=${this.props.theme}&default-tab=${this.props.tab}`;
+    const src  = `//codepen.io/${this.props.user}/embed/${this.props.hash}/?height=${this.props.height}&theme-id=${this.props.theme}&default-tab=${this.props.tab}&embed-version=${this.props.version}`;
     const user = `http://codepen.io/${this.props.user}`;
     const pen  = `${user}/pen/${this.props.hash}/`;
 
