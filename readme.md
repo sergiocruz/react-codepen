@@ -33,8 +33,9 @@ user     | `string` | `<required>` |                          | `null`    | [cod
 hash     | `string` | `<required>` |                          | `null`    | the hash id of the pen to display.
 height   | `string` | `<optional>` | `px, %`                  | `250px`   | the height of the pen.
 width    | `string` | `<optional>` | `px, %`                  | `100%`    | the width of the pen.
-tab      | `string` | `<optional>` | `css, html, js, result`  | `result`  | the default tab that should be displayed.
 theme    | `string` | `<optional>` |                          | `default` | the theme the pen should use.
+version  | `number` | `<optional>` |                          | 2         | the embed version codepen should use.
+tab      | `string` | `<optional>` | `css`, `html`, `js`, `result`, `css,js`, `result,css`, etc  | `result`  | the default tab that should be displayed.
 
 
 ## Developing
